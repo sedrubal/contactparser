@@ -1,0 +1,25 @@
+[
+    {
+        "Email": [
+            {
+                "Address": "foo@bar.com",
+                "Labels": [
+                    "Preferred"
+                ]
+            },
+            {
+                "Address": "foobar@example.com",
+                "Labels": [
+                    "Preferred"
+                ]
+            }
+        ],
+        "Name": [
+            {
+                "FamilyName": "Bar",
+                "FormattedName": "Foo Bar",
+                "GivenName": "Foo"
+            }
+        ]
+    }
+]

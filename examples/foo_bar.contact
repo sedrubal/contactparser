@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<c:contact c:Version="1" xmlns:c="http://schemas.microsoft.com/Contact" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:MSP2P="http://schemas.microsoft.com/Contact/Extended/MSP2P">
+	<c:CreationDate>2013-11-23T13:37:42Z</c:CreationDate>
+	<c:Extended xsi:nil="true"/>
+	<c:ContactIDCollection>
+		<c:ContactID c:ElementID="4c2048c3-dead-beef-caff-ebabee714fca">
+			<c:Value>4b736c6d-6b7e-40bf-8283-6dbd3ff7625e</c:Value>
+		</c:ContactID>
+	</c:ContactIDCollection>
+	<c:EmailAddressCollection>
+		<c:EmailAddress c:ElementID="7a04acbc-baf8-421d-b2a6-034cf722222b">
+			<c:Type>SMTP</c:Type>
+			<c:Address>foo@bar.com</c:Address>
+			<c:LabelCollection>
+				<c:Label>Preferred</c:Label>
+			</c:LabelCollection>
+		</c:EmailAddress>
+		<c:EmailAddress c:ElementID="3858f622-30ac-3c91-5f30-0c664312c63f">
+			<c:Type>SMTP</c:Type>
+			<c:Address>foobar@example.com</c:Address>
+			<c:LabelCollection>
+				<c:Label>Preferred</c:Label>
+			</c:LabelCollection>
+		</c:EmailAddress>
+		<c:EmailAddress c:ElementID="c0443fd3-80db-47d8-beb0-e4ada76c64dc" xsi:nil="true"/>
+	</c:EmailAddressCollection>
+	<c:NameCollection>
+		<c:Name c:ElementID="00c84ada-7b29-4229-be42-c6ab7a01e516">
+			<c:FormattedName>Foo Bar</c:FormattedName>
+			<c:FamilyName>Bar</c:FamilyName>
+			<c:GivenName>Foo</c:GivenName>
+		</c:Name>
+	</c:NameCollection>
+	<c:PhotoCollection>
+		<c:Photo c:ElementID="2519326d-913b-4bb2-a497-b594e7a07c6a">
+			<c:LabelCollection>
+				<c:Label>UserTile</c:Label>
+			</c:LabelCollection>
+		</c:Photo>
+	</c:PhotoCollection>
+</c:contact>

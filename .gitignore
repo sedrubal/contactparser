@@ -1,0 +1,8 @@
+# python
+*.pyc
+*__pycache__*
+
+# contact files
+*.csv
+*.json
+*.contact
