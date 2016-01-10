@@ -48,24 +48,31 @@ def parse_args():
                         type=argparse.FileType('w'),
                         default='-',
                         help="the output file, - for stdout")
-    parser.add_argument('-f', '--format',
-                        action='store',
-                        dest='output_format',
-                        choices=['json', 'csv'],
-                        help="the output format")
-    parser.add_argument('--pretty',
-                        action='store_true',
-                        dest='json_pretty',
-                        required=False,
-                        help='Make json pretty and not compact')
-    parser.add_argument('--csv-dialect',
-                        action='store',
-                        dest='csv_dialect',
-                        choices=['excel', 'excel-tab', 'unix'],
-                        default='unix',
-                        help="the csv dialect")
+    parser_json_grp = parser.add_argument_group('json')
+    parser_json_grp.add_argument('--json',
+                                 action='store_const',
+                                 const='json',
+                                 dest='output_format',
+                                 help="output format is json")
+    parser_json_grp.add_argument('--pretty',
+                                 action='store_true',
+                                 dest='json_pretty',
+                                 required=False,
+                                 help='Make json pretty and not compact')
+    parser_csv_grp = parser.add_argument_group('csv')
+    parser_csv_grp.add_argument('--csv',
+                                action='store_const',
+                                const='csv',
+                                dest='output_format',
+                                help="output format is csv")
+    parser_csv_grp.add_argument('--csv-dialect',
+                                action='store',
+                                dest='csv_dialect',
+                                choices=['excel', 'excel-tab', 'unix'],
+                                default='unix',
+                                help="the csv dialect")
 
-    if 'autocomplete' in locals():
+    if 'autocomplete' in globals():
         autocomplete(parser)
 
     args = parser.parse_args()
