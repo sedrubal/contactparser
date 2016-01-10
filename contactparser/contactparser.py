@@ -8,10 +8,6 @@ a command line tool to convert microsofts .contact files into a csv or json
 
 from __future__ import print_function
 
-__author__ = "sedrubal"
-__license__ = "GPLv3"
-__url__ = "https://github.com/sedrubal/contactparser"
-
 import sys
 from bs4 import BeautifulSoup
 import collections
@@ -316,8 +312,8 @@ def main():
         contacts.append(parse_contact_file(contact_file, args))
 
     save_output(contacts, args)
+    return 0
 
 
 if __name__ == '__main__':
-    main()
-    exit(0)
+    exit(main())

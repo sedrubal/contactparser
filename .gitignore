@@ -6,3 +6,9 @@
 *.csv
 *.json
 *.contact
+
+# packaging
+build/
+*.egg-info/
+dist/
+*env*/
