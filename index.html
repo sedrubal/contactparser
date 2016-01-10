@@ -44,33 +44,35 @@ I think many programs do the same job already but I didn't find a comfortable so
 <h3>
 <a id="detailed" class="anchor" href="#detailed" aria-hidden="true"><span class="octicon octicon-link"></span></a>detailed:</h3>
 
-<pre><code>usage: contactparser.py [-h] [-v] [-o file] [-f {json,csv}] [--pretty]
+<pre><code>usage: contactparser.py [-h] [-v] [-o file] [--json] [--pretty] [--csv]
                         [--csv-dialect {excel,excel-tab,unix}]
                         file [file ...]
 
 a command line tool to convert microsofts .contact files into a csv or json
 
 positional arguments:
-  file                  .contact files
+  file                  .contact files, - for stdin
 
 optional arguments:
   -h, --help            show this help message and exit
   -v, --verbose         prints debug messages to stderr, -vv for more)
   -o file, --output file
                         the output file, - for stdout
-  -f {json,csv}, --format {json,csv}
-                        the output format
+
+output: json:
+  --json                output format is json
   --pretty              Make json pretty and not compact
+
+output: csv:
+  --csv                 output format is csv
   --csv-dialect {excel,excel-tab,unix}
                         the csv dialect
 </code></pre>
 
 <h2>
-<a id="requirements" class="anchor" href="#requirements" aria-hidden="true"><span class="octicon octicon-link"></span></a>Requirements</h2>
+<a id="install" class="anchor" href="#install" aria-hidden="true"><span class="octicon octicon-link"></span></a>Install</h2>
 
-<ul>
-<li>argparse</li>
-</ul>
+<div class="highlight highlight-source-shell"><pre>./setup.py install</pre></div>
 
 <h2>
 <a id="contribute" class="anchor" href="#contribute" aria-hidden="true"><span class="octicon octicon-link"></span></a>Contribute</h2>
