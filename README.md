@@ -20,31 +20,37 @@ Usage
 ### detailed:
 
 ```
-usage: contactparser.py [-h] [-v] [-o file] [-f {json,csv}] [--pretty]
+usage: contactparser.py [-h] [-v] [-o file] [--json] [--pretty] [--csv]
                         [--csv-dialect {excel,excel-tab,unix}]
                         file [file ...]
 
 a command line tool to convert microsofts .contact files into a csv or json
 
 positional arguments:
-  file                  .contact files
+  file                  .contact files, - for stdin
 
 optional arguments:
   -h, --help            show this help message and exit
   -v, --verbose         prints debug messages to stderr, -vv for more)
   -o file, --output file
                         the output file, - for stdout
-  -f {json,csv}, --format {json,csv}
-                        the output format
+
+output: json:
+  --json                output format is json
   --pretty              Make json pretty and not compact
+
+output: csv:
+  --csv                 output format is csv
   --csv-dialect {excel,excel-tab,unix}
                         the csv dialect
 ```
 
-Requirements
-------------
+Install
+-------
 
- - argparse
+```sh
+./setup.py install
+```
 
 Contribute
 ----------
