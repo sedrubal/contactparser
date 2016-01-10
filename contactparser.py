@@ -10,6 +10,7 @@ from __future__ import print_function
 
 __author__ = "sedrubal"
 __license__ = "GPLv3"
+__url__ = "https://github.com/sedrubal/contactparser"
 
 import sys
 from bs4 import BeautifulSoup
@@ -33,8 +34,8 @@ def parse_args():
                         action='store',
                         nargs='+',
                         metavar='file',
-                        type=str,
-                        help=".contact files")
+                        type=argparse.FileType('r'),
+                        help=".contact files, - for stdin")
     parser.add_argument('-v', '--verbose',
                         action='count',
                         dest='verbosity',
@@ -44,7 +45,7 @@ def parse_args():
                         action='store',
                         dest='output_file',
                         metavar='file',
-                        type=str,
+                        type=argparse.FileType('w'),
                         default='-',
                         help="the output file, - for stdout")
     parser.add_argument('-f', '--format',
@@ -70,11 +71,11 @@ def parse_args():
     args = parser.parse_args()
 
     if not args.output_format and args.output_file:
-        if args.output_file.endswith('.csv'):
+        if args.output_file.name.endswith('.csv'):
             verbose_print("setting output format to csv (from fileextension)",
                           args.verbosity, 2)
             args.output_format = 'csv'
-        elif args.output_file.endswith('.csv'):
+        elif args.output_file.name.endswith('.csv'):
             verbose_print("setting output format to json (from fileextension)",
                           args.verbosity, 2)
             args.output_format = 'json'
@@ -129,14 +130,13 @@ def safe_get_text(element, default=''):
     return default
 
 
-def parse_contact_file(filename, args):
+def parse_contact_file(contact_file, args):
     """
     Parses the given .contact file and returns a dict containing the
     contact information
     """
-    verbose_print("opening '%s'" % filename, args.verbosity)
-    with open(filename) as contact_file:
-        contact_xml = BeautifulSoup(contact_file.read(), 'xml')
+    verbose_print("opening '%s'" % contact_file.name, args.verbosity)
+    contact_xml = BeautifulSoup(contact_file.read(), 'xml')
     con = {}
 
     # Names
@@ -266,18 +266,22 @@ def save_output(contacts, args):
     saves the contacts to file
     """
 
-    with sys.stdout if not args.output_file or args.output_file == '-' else \
-            open(args.output_file, 'w') as output_file:
-        # write to file or to stdout if no output file is given
-        if args.output_format == 'json':
-            write_json(contacts, output_file, args.json_pretty, args.verbosity)
-        elif args.output_format == 'csv':
-            write_csv(contacts, output_file, args.csv_dialect, args.verbosity)
-        else:
-            print("[!] can't generate a %s - not implemented" %
-                  args.output_format,
-                  sys.stderr)
-            sys.exit(1337)
+    # write to file or to stdout if no output file is given
+    if args.output_format == 'json':
+        write_json(contacts,
+                   args.output_file,
+                   args.json_pretty,
+                   args.verbosity)
+    elif args.output_format == 'csv':
+        write_csv(contacts,
+                  args.output_file,
+                  args.csv_dialect,
+                  args.verbosity)
+    else:
+        print("[!] can't generate a %s - not implemented" %
+              args.output_format,
+              sys.stderr)
+        sys.exit(1337)
 
 
 def main():
@@ -289,8 +293,8 @@ def main():
 
     contacts = []
 
-    for contact_file_name in args.files:
-        contacts.append(parse_contact_file(contact_file_name, args))
+    for contact_file in args.files:
+        contacts.append(parse_contact_file(contact_file, args))
 
     save_output(contacts, args)
 
