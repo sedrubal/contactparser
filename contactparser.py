@@ -48,7 +48,7 @@ def parse_args():
                         type=argparse.FileType('w'),
                         default='-',
                         help="the output file, - for stdout")
-    parser_json_grp = parser.add_argument_group('json')
+    parser_json_grp = parser.add_argument_group('output: json')
     parser_json_grp.add_argument('--json',
                                  action='store_const',
                                  const='json',
@@ -59,7 +59,7 @@ def parse_args():
                                  dest='json_pretty',
                                  required=False,
                                  help='Make json pretty and not compact')
-    parser_csv_grp = parser.add_argument_group('csv')
+    parser_csv_grp = parser.add_argument_group('output: csv')
     parser_csv_grp.add_argument('--csv',
                                 action='store_const',
                                 const='csv',
@@ -77,6 +77,14 @@ def parse_args():
 
     args = parser.parse_args()
 
+    # parser.add_mutually_exclusive_group did not work so check this manually
+    if args.output_format == 'csv' and args.json_pretty:
+        parser.exit("[!] '--pretty' is only for json output")
+        sys.exit(1337)
+    if args.output_format == 'json' and '--csv-dialect' in sys.argv:
+        parser.exit("[!] '--csv-dialect' is only for csv output")
+        sys.exit(1337)
+
     if not args.output_format and args.output_file:
         if args.output_file.name.endswith('.csv'):
             verbose_print("setting output format to csv (from fileextension)",
@@ -86,15 +94,19 @@ def parse_args():
             verbose_print("setting output format to json (from fileextension)",
                           args.verbosity, 2)
             args.output_format = 'json'
+    if not args.output_format and args.json_pretty:
+        verbose_print("setting output format to json (from --pretty)",
+                      args.verbosity, 2)
+        args.output_format = 'json'
+    if not args.output_format and '--csv-dialect' in sys.argv:
+        verbose_print("setting output format to csv (from --csv-dialect)",
+                      args.verbosity, 2)
+        args.output_format = 'csv'
 
     if not args.output_format:
         verbose_print("setting output format to json (default)",
                       args.verbosity, 2)
         args.output_format = 'json'
-
-    if args.output_format == 'csv' and args.json_pretty:
-        print("[!] '--pretty' is only for json output")
-        sys.exit(1337)
 
     return args
 
